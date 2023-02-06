@@ -5,7 +5,8 @@
 // pre serve a impaginare l'array
 echo "<pre>";
 print_r($_GET);
-echo "</pre>"
 
+print_r($_POST);
+echo "</pre>"
 
 ?>
