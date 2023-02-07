@@ -1,20 +1,19 @@
-<h1>Sono la risposta (RESPONSE)</h1>
-
-
 <?php
-// pre serve a impaginare l'array
-echo "<pre>";
-echo "get:";
-print_r($_GET);
-echo "post:";
-print_r($_POST);
-echo "</pre>";
 
-echo "La tua email  è <br>";
-echo "<strong>".$_POST["email"]."</strong>";
+/*
+ $ = è una variabile
+ "" = è una stringa
+PAROLA = è una costante, constant case(maiusc), tutte le costanti sono globali
 
+*/
 
+filter_input(INPUT_GET, "email", FILTER_VALIDATE_EMAIL);
 
-
+if($test === false){
+    echo "\nla mail nonè valida\n";
+}
+else{
+    echo "grazie la tua email è valida: $test";
+}
 
 ?>
