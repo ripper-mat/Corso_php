@@ -32,6 +32,29 @@ password-->
         <div class="col-sm-4">
             <form class="mt-1 mt-md-5" action="register-user.php" method="post">
                 <div class="mb-3">
+                    <label for="first_name" class="form-label">Name</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="birthday" class="form-label">Date of birth</label>
+                    <input type="date" name="birthday" id="birthday" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="birth_place" class="form-label">Place of birth</label>
+                    <input type="text" name="birth_place" id="birth_place" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <p>Gender</p>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">M</label><br>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">F</label><br>
+                </div>
+                <div class="mb-3">
                      <label for="email" class="form-label">E-mail</label>
                      <input type="email" class="form-control" name="email" id="email">
                 </div> 
@@ -39,32 +62,7 @@ password-->
                      <label for="password" class="form-label">Password</label>
                      <input type="password" name="password" id="password" class="form-control">
                 </div>
-                <div class="mb-3">
-                     <label for="first_name" class="form-label">Name</label>
-                     <input type="text" name="first_name" id="first_name" class="form-control">
-                </div>
-                <div class="mb-3">
-                     <label for="last_name" class="form-label">Last name</label>
-                     <input type="text" name="last_name" id="last_name" class="form-control">
-                </div>
-                <div class="mb-3">
-                     <label for="birthday" class="form-label">Date of birth</label>
-                     <input type="date" name="birthday" id="birthday" class="form-control">
-                </div>
-                <div class="mb-3">
-                     <label for="birth_place" class="form-label">Place of birth</label>
-                     <input type="text" name="birth_place" id="birth_place" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <p>Gender</p>
-                <input type="radio" id="male" name="male" value="male">
-                <label for="male">M</label><br>
-                <input type="radio" id="female" name="female" value="female">
-                <label for="female">F</label><br>
-                <input type="radio" id="other" name="other" value="other">
-                <label for="other">Other</label><br>
-                </div>
-                <button class="btn btn-primary btn-sm"  type="submit"> Register </button>
+                <button class="btn btn-primary btn-m"  type="submit"> Register </button>
              </form>
         </div>
 </body>
