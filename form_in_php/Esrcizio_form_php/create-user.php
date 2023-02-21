@@ -49,10 +49,11 @@ password-->
                 </div>
                 <div class="mb-3">
                     <p>Gender</p>
-                    <input type="radio" id="male" name="gender" value="male">
+                    <input type="radio" id="male" name="gender" value="male" checked="checked">
                     <label for="male">M</label><br>
                     <input type="radio" id="female" name="gender" value="female">
                     <label for="female">F</label><br>
+                    
                 </div>
                 <div class="mb-3">
                      <label for="email" class="form-label">E-mail</label>
