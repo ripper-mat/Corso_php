@@ -1,8 +1,8 @@
 <?php
-class checkdate{
+class ValidateDate implements Validable{
 
-    public function validateDate($date){
+    public function isValid($date){
 
-    $format =["d-m-Y", "d.m.Y", "d/m/Y"]
+    
     }
 }
