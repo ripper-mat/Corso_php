@@ -1,3 +1,22 @@
+<?php
+// per capire se sulla pagina web sono in get oppure in post
+// print_r($_SERVER['REQUEST_METHOD']);
+
+// if($_SERVER['REQUEST_METHOD'] === 'POST'){
+//     echo "dati inviati adesso li devo controllare";
+// }else{
+//     echo "l' utente deve ancora copmpilare il form";
+// };
+
+
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,39 +49,50 @@ password-->
 
         </div>
         <div class="col-sm-4">
-            <!-- mettendo in action # mando i dati alla pagina stessa -->
-            <form class="mt-1 mt-md-5" action="#" method="post">
+            <!-- mettendo in action lo stesso file in cui c'è il form rimando i dati alla pagina stessa -->
+            <!-- ci dovrà essere uno script all'interno della pagina, non solo html -->
+            <form class="mt-1 mt-md-5" action="create-user.php" method="post">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">Name</label>
                     <input type="text" name="first_name" id="first_name" class="form-control">
+                    <div class="invalid-feedback">Errore</div>
                 </div>
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last name</label>
                     <input type="text" name="last_name" id="last_name" class="form-control">
+                    <div class="invalid-feedback">Errore</div>
                 </div>
                 <div class="mb-3">
                     <label for="birthday" class="form-label">Date of birth</label>
                     <input type="date" name="birthday" id="birthday" class="form-control">
+                    <div class="invalid-feedback">Errore</div>
                 </div>
                 <div class="mb-3">
                     <label for="birth_place" class="form-label">Place of birth</label>
                     <input type="text" name="birth_place" id="birth_place" class="form-control">
+                    <div class="invalid-feedback">Errore</div>
                 </div>
                 <div class="mb-3">
-                    <p>Gender</p>
-                    <input type="radio" id="male" name="gender" value="male" checked="checked">
-                    <label for="male">M</label><br>
-                    <input type="radio" id="female" name="gender" value="female">
-                    <label for="female">F</label><br>
+                    <span>Gender</span>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="male" name="gender" value="male" checked="checked">
+                        <label class="form-check-label" for="male">M</label><br>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="female" name="gender" value="female">
+                        <label class="form-check-label" for="female">F</label><br>
+                    </div>
                     
                 </div>
                 <div class="mb-3">
-                     <label for="email" class="form-label">E-mail</label>
-                     <input type="email" class="form-control" name="email" id="email">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" name="email" id="email">
+                    <div class="invalid-feedback">Errore</div>
                 </div> 
                 <div class="mb-3">
-                     <label for="password" class="form-label">Password</label>
-                     <input type="password" name="password" id="password" class="form-control">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <div class="invalid-feedback">Errore</div>
                 </div>
                 <button class="btn btn-primary btn-m"  type="submit"> Register </button>
              </form>
