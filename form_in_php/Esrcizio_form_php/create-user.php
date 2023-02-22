@@ -30,7 +30,8 @@ password-->
 
         </div>
         <div class="col-sm-4">
-            <form class="mt-1 mt-md-5" action="register-user.php" method="post">
+            <!-- mettendo in action # mando i dati alla pagina stessa -->
+            <form class="mt-1 mt-md-5" action="#" method="post">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">Name</label>
                     <input type="text" name="first_name" id="first_name" class="form-control">
@@ -49,10 +50,11 @@ password-->
                 </div>
                 <div class="mb-3">
                     <p>Gender</p>
-                    <input type="radio" id="male" name="gender" value="male">
+                    <input type="radio" id="male" name="gender" value="male" checked="checked">
                     <label for="male">M</label><br>
                     <input type="radio" id="female" name="gender" value="female">
                     <label for="female">F</label><br>
+                    
                 </div>
                 <div class="mb-3">
                      <label for="email" class="form-label">E-mail</label>
