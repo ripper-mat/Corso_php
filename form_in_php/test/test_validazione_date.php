@@ -1,9 +1,7 @@
 <?php
-require "./form_in_php/class/ValidateDate.php";
 require "./form_in_php/class/Validable.php";
-//validateRequired campo obbligatorio, quindi non deve essere vuoto
-//la funzione dovrà ritornare false in caso di campo vuoto
-//array di array di casi possibili da tenere sotto controllo
+require "./form_in_php/class/ValidateDate.php";
+
 $testCases = [
     [
         'input' => '       ',    
@@ -14,8 +12,12 @@ $testCases = [
         'expected'=> '16/02/1994'
     ],
     [
+        'input'=> '32/02/1994    ',
+        'expected'=> false
+    ],
+    [
         'input'=> '  16/02/1994  ',
-        'expected' => '16/02/1994',
+        'expected' => '16/02/1994'
     ],
     [
         'input'=> '  16/02/1994',
@@ -53,11 +55,11 @@ foreach ($testCases as $key => $test){
     $input = $test['input'];
     $expected = $test['expected'];
 
-    $v = new ValidateRequired();
+    $v = new ValidateDate();
     if($v->isValid($input) != $expected){
-        echo "\nTest numero $key non superato mi aspettavo:";
+        echo "\nTest numero $key non superato mi aspettavo: ";
         var_dump($expected);
-        echo "\nma ho trovato";
+        echo "\nma ho trovato ";
         var_dump($v->isValid($input));
     }
 
