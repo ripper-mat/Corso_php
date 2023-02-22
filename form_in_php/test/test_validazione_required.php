@@ -41,7 +41,7 @@ $testCases = [
         'expected' => false
     ],
     [
-        'input'=> '<b>  ',
+        'input'=> '<b></b>  ',
         'expected' => false
     ]
 ];

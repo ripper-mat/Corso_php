@@ -1,5 +1,6 @@
 <?php
 require "./form_in_php/class/ValidateDate.php";
+require "./form_in_php/class/Validable.php";
 //validateRequired campo obbligatorio, quindi non deve essere vuoto
 //la funzione dovrà ritornare false in caso di campo vuoto
 //array di array di casi possibili da tenere sotto controllo
@@ -9,28 +10,28 @@ $testCases = [
         'expected' => false
     ],
     [
-        'input'=> 'ciao    ',
-        'expected'=> 'ciao'
+        'input'=> '16/02/1994    ',
+        'expected'=> '16/02/1994'
     ],
     [
-        'input'=> '  ciao  ',
-        'expected' => 'ciao',
+        'input'=> '  16/02/1994  ',
+        'expected' => '16/02/1994',
     ],
     [
-        'input'=> '  ciao',
-        'expected' => 'ciao'
+        'input'=> '  16/02/1994',
+        'expected' => '16/02/1994'
     ],
     [
         'input'=> '',
         'expected' => false
     ],
     [
-        'input'=> '<h1>ciao</h1>',
-        'expected' => 'ciao'
+        'input'=> '<h1>16/02/1994</h1>',
+        'expected' => '16/02/1994'
     ],
     [
-        'input'=> '<b>ciao</b>',
-        'expected' => 'ciao'
+        'input'=> '<b>16/02/1994</b>',
+        'expected' => '16/02/1994'
     ],
     [
         'input'=> '<b>   </b>',
