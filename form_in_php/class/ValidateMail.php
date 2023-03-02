@@ -5,4 +5,9 @@ class ValidateMail implements Validable{
         
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
+
+    public function getMessage()
+    {
+        return 'campo non valido';
+    }
 }

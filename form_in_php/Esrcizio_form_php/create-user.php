@@ -8,15 +8,16 @@ error_reporting(0);
  require "../class/ValidateRequired.php";
 
 
-// per capire se sulla pagina web sono in get oppure in post
+ $validatorName = new ValidateRequired('', 'Il nome è obbligatorio');
+
+ // per capire se sulla pagina web sono in get oppure in post
 // print_r($_SERVER['REQUEST_METHOD']);
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    echo "dati inviati adesso li devo controllare";
+//   echo "dati inviati adesso li devo controllare";
 // evitare di prendere i dati direttamente dal post, usare filter_inputoppure filter_var che ha già dei controlli
     // $first_name = $_POST['first_name'];
     // filter_var($first_name);
 
-$validatorName = new ValidateRequired();
 $validatorLastName = new ValidateRequired();
 $validatorBirthday = new ValidateRequired();
 $validatorBirthPlace = new ValidateRequired();
@@ -99,14 +100,19 @@ password-->
             <form class="mt-1 mt-md-5" action="create-user.php" method="post">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">Name</label>
-                    <input class="form-control <?php echo $isValidNameClass?>" type="text" name="first_name" id="first_name">
+                    <input class="form-control <?php !$validatorName->getValid() ? 'is-invalid': ''?>" 
+                    type="text" 
+                    name="first_name" 
+                    id="first_name" 
+                    value="<?= $validatorName->getValue()?> ">
                    <?php
                 //    isset serve a controllare se la variabile che uso non da errore, se esiste la usa
                 // Nel GET sarà fals eperchè non c'è nessun nome
                 // Nel POST se il nome è corretto sarà validato e la variabile sarà true
-                   if(isset($validatedName) && !$validatedName){
+                   if($validatorName->getValid()){
                        ?>
-                    <div class="invalid-feedback">il nome è obbligatorio</div>
+                    <div class="invalid-feedback">
+                        <? echo $validatorName->getMessage()?></div>
                     <?php
                     //echo "il nome è obbligatorio";
                    }
