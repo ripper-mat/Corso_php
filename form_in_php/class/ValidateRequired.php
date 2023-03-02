@@ -11,4 +11,9 @@ class ValidateRequired implements Validable{
 
         return $valueWithoutSpace;
     }
+
+    public function message()
+    {
+        return 'campo non valido';
+    }
 }
