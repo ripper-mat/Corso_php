@@ -26,7 +26,6 @@ $validatedName = $validatorName->isValid($_POST['first_name']);
 $validatedLastName = $validatorLastName->isValid($_POST['last_name']);
 $validatedBirthday = $validatorBirthday->isValid($_POST['birthday']);
 $validatedBirthPlace = $validatorBirthPlace->isValid($_POST['birth_place']);
-$validatorGender = new ValidateRequired();
 $validatedEmail = $validatorEmail->isValid($_POST['email']);
 $validatedPassword = $validatorPassword->isValid($_POST['password']);
 //operatore ternario è uguale a un if
@@ -37,6 +36,7 @@ $isValidBirthPlaceClass = $validatedBirthPlace ? '' : 'is-invalid';
 $isValidEmailClass = $validatedEmail ? '' : 'is-invalid';
 $isValidPasswordClass = $validatedPassword ? '' : 'is-invalid';
 
+$validatorGender = new ValidateRequired();
 // $gender = !isset($_POST['gender']) ? '' : $_POST['gender'];
 // $validatedGender = $gender->isValid($_POST['gender']) ? '' : $_POST['gender'];
 
@@ -99,7 +99,7 @@ password-->
             <form class="mt-1 mt-md-5" action="create-user.php" method="post">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">Name</label>
-                    <input class="form-control <?php echo $isValidNameClass?>" type="text" name="first_name" id="first_name" value="<?php echo $_POST['first_name']?>">
+                    <input class="form-control <?php echo $isValidNameClass?>" type="text" name="first_name" id="first_name">
                    <?php
                 //    isset serve a controllare se la variabile che uso non da errore, se esiste la usa
                 // Nel GET sarà fals eperchè non c'è nessun nome
@@ -115,7 +115,7 @@ password-->
 
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control <?php echo $isValidLastNameClass?>" value="<?php echo $_POST['last_name']?>">
+                    <input type="text" name="last_name" id="last_name" class="form-control <?php echo $isValidLastNameClass?>">
                    <?php
                     if(isset($validatedLastName) && !$validatedLastName){
                        ?>
@@ -127,7 +127,7 @@ password-->
                 </div>
                 <div class="mb-3">
                     <label for="birthday" class="form-label">Date of birth</label>
-                    <input type="date" name="birthday" id="birthday" class="form-control <?php echo $isValidBirthdayClass?>" value="<?php echo $_POST['birthday']?>">
+                    <input type="date" name="birthday" id="birthday" class="form-control <?php echo $isValidBirthdayClass?>">
                     <?php
                     if(isset($validatedBirthPlace) && !$validatedBirthPlace){
                        ?>
