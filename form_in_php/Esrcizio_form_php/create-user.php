@@ -2,7 +2,7 @@
 
 // Gestione degli errori
 // error reportin accetta un intero, un codice per ogni tipo di errore, hanno anche dei nomi (E_ALL visualizza tutti gli errori)
-//error_reporting(0);
+error_reporting(0);
 
  require "../class/Validable.php";
  require "../class/ValidateRequired.php";
