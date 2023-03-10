@@ -1,9 +1,11 @@
 <?php
+require "../../config.php";
+require "../class/Registry/it/Regione.php";
 
 //error_reporting(E_ALL); li vede tutti
 //error_reporting(0); li spegne tutti
-require "test/Validable.php";
-require "test/ValidateRequired.php";
+require "../test/Validable.php";
+require "../test/ValidateRequired.php";
 // print_r($_POST);
 
 $validatorName = new ValidateRequired('','Il nome è obblicatorio');
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         <section class="row">
             <div class="col-sm-3">
-                ciccio
+                
             </div>
             <div class="col-sm-6">
                 <form class="mt-1 mt-md-5" action="create-user.php" method="post">
@@ -117,15 +119,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 <input type="text" class="form-control" name="birth_city" id="birth_city">
                             </div>
                             <div class="col">
-                                birth_region
+                               
                                 <label for="birth_region" class="form-label">Regione</label>
                                 <select name="birth_region" id="birth_region" class="birth_region">
-                                    <option value="15">Piemonte</option>
-                                </select>
+                                <?php foreach (Regione::all() as $regione) : ?>   
+                                <option value="<?= $regione->regione_id ?>"><?= $regione->nome ?></option>
+                                    <?php endforeach; ?>
+                            </select>
                             </div>
                             <div class="col">
-                                birth_province
-                                <label for="birth_province" class="form-label">Regione</label>
+                                
+                                <label for="birth_province" class="form-label">Provincia</label>
                                 <select name="birth_province" id="birth_province" class="birth_province">
                                     <option value="AT">Asti</option>
                                 </select>
