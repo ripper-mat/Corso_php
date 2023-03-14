@@ -1,5 +1,5 @@
 <?php
-
+namespace validator;
 interface Validable {
 
     public function isValid($value);
