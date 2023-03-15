@@ -1,12 +1,12 @@
 <?php
 
 
+
+// AUTOLOAD HTML FRONTEND
 spl_autoload_register(function($className){
-
-echo "\nsto cercando $className\n";
-
-$className= str_replace("\\", "/",$className);
-require "./form_in_php/class/".$className.".php";
-
+    // C:\xampp\htdocs\corso_php_mysql_2223\form_in_php\class
+    
+    $className = str_replace("\\","/",__DIR__."/class/".$className.'.php');
+    require $className;
+;
 });
-
