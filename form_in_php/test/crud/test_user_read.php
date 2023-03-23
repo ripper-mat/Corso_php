@@ -71,6 +71,8 @@ var_dump($result);
 $result = $crud->update(1, $user2);
 if($result == 1){
     echo "\nutente aggiornato\n";
-}else{
-    echo "\nutente non aggiornato";
+}elseif($result>1){
+    echo "\ntroppi utenti aggiornati";
+}elseif($result==0){
+    echo "\nnessun utente aggiornato";
 }
