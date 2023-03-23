@@ -36,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validatorRunner->isValid();
   
     if($validatorRunner->getValid()){
-        print_r($_POST);
+        // print_r($_POST);
         
         $user = User::arrayToUser($_POST);
-        echo "sono qui";
-        print_r($user);
-        var_dump($user->regione_id);
+        // echo "sono qui";
+        // print_r($user);
+        // var_dump($user->regione_id);
 
        $crud = new UserCRUD;
        $crud->create($user);
