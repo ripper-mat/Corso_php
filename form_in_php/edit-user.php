@@ -29,23 +29,25 @@ $validatorRunner = new ValidatorRunner([
     'birth_city'  => new ValidateRequired($user->birth_city,'La città  è obbligatoria'),
     'regione_id'  => new ValidateRequired($user->regione_id,'La regione è obbligatoria'),
     'provincia_id'  => new ValidateRequired($user->provincia_id,'La provincia è obbligatoria'),
-
     'username'  => new ValidateRequired($user->username,'Username è obbligatorio'),
-    'password'  => new ValidateRequired('','Password è obbligatorio')
+    'password'  => new ValidateRequired('987123654','Password è obbligatorio')
 ]);
 extract($validatorRunner->getValidatorList());
+// var_dump($_POST);
 
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-//     $validatorRunner->isValid();
-//     if($validatorRunner->getValid()){
-//         $user = User::arrayToUser($_POST);
-//         $crud = new UserCRUD;
-//         $crud->create($user);
-//     }else{
-//         echo "il form non è valido";
-//     }
-// }
+    $validatorRunner->isValid();
+    if($validatorRunner->getValid()){
+        $user = User::arrayToUser($_POST);
+        $crud = new UserCRUD;
+        $crud->update($user['user_id'], $user);
+        // redirect
+        header("location: index-user.php");
+    }else{
+        echo "il form non è valido";
+    }
+}
 
 
 
@@ -56,7 +58,7 @@ extract($validatorRunner->getValidatorList());
 
         <section class="row">
             <div class="col-sm-8">
-                <form class="mt-1 mt-md-5" action="create-user.php" method="post">
+                <form class="mt-1 mt-md-5" action="edit-user.php" method="post">
                     <div class="mb-3">
                         <label for="first_name" class="form-label">nome</label>
                         <input type="text" 
@@ -186,7 +188,7 @@ extract($validatorRunner->getValidatorList());
                         <?php endif ?>
                     </div>
 
-                    <button class="btn btn-primary btn-sm" type="submit">Registrati</button>
+                    <button class="btn btn-primary btn-sm" type="submit">Modifica</button>
                 </form>
             </div>
 

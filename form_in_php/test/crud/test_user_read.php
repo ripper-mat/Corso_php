@@ -68,7 +68,7 @@ if(is_array($result) && count($result) === 1 ){
 
 var_dump($result);
 
-$result = $crud->update(1, $user2);
+$result = $crud->update(3, $user2);
 if($result == 1){
     echo "\nutente aggiornato\n";
 }elseif($result>1){

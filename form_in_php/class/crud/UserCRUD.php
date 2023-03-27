@@ -31,7 +31,7 @@ class UserCRUD {
     public function update($user_id, $user)
     {
         $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
-        $query = "UPDATE `user` u SET  `first_name`= :first_name, `last_name`= :last_name, `birthday` = :birthday, `birth_city`= :birth_city, `regione_id`= :regione_id, `provincia_id`=:provincia_id, `username`=:username, `password`=:password, `gender`=:gender WHERE user_id= :user_id;";
+        $query = "UPDATE `user` SET  `first_name`= :first_name, `last_name`= :last_name, `birthday` = :birthday, `birth_city`= :birth_city, `regione_id`= :regione_id, `provincia_id`=:provincia_id, `username`=:username, `password`=:password, `gender`=:gender WHERE user_id= :user_id;";
         $stm = $conn->prepare($query);
         $stm->bindValue(':first_name',$user->first_name,\PDO::PARAM_STR);
         $stm->bindValue(':last_name',$user->last_name,\PDO::PARAM_STR);
