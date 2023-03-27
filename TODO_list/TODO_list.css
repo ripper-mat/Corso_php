@@ -117,10 +117,12 @@ input {
 /* Style the list items */
 .results {
     /* border: 1px solid red; */
-
+    width: 40%;
+    height: 250px;
     background: #eee;
     font-size: 18px;
     margin-left: 0%;
+    overflow-y: scroll;
 }
 
 .employee_list {

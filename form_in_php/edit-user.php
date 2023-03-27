@@ -9,46 +9,43 @@ use validator\ValidateMail;
 use validator\ValidateRequired;
 use validator\ValidatorRunner;
 
-require "../config.php";
 require "./autoload.php";
+require "../config.php";
 
-// die();
-/**
- * TODO: Implementare criteri mutipli di valiidazione (array di validazioni non singole)
- */
+$user_id = filter_input(INPUT_GET,"user_id", FILTER_VALIDATE_INT);
+
+if($user_id){   
+    $crud = new UserCRUD;
+    $user = $crud->read($user_id);
+}else{
+    echo "problemi";
+}
+
 $validatorRunner = new ValidatorRunner([
-    'first_name' => new ValidateRequired('','Il Nome è obbligatorio'),
-    'last_name'  => new ValidateRequired('','Il Cognome è obbligatorio'),
-    'birthday'  => new ValidateDate('','La data di nascità non è valida'),
-    'gender'  => new ValidateRequired('','Il Genere è obbligatorio'),
-    'birth_city'  => new ValidateRequired('','La città  è obbligatoria'),
-    'regione_id'  => new ValidateRequired('','La regione è obbligatoria'),
-    'provincia_id'  => new ValidateRequired('','La provincia è obbligatoria'),
+    'first_name' => new ValidateRequired($user->first_name,'Il Nome è obbligatorio'),
+    'last_name'  => new ValidateRequired($user->last_name,'Il Cognome è obbligatorio'),
+    'birthday'  => new ValidateDate($user->birthday,'La data di nascità non è valida'),
+    'gender'  => new ValidateRequired($user->gender,'Il Genere è obbligatorio'),
+    'birth_city'  => new ValidateRequired($user->birth_city,'La città  è obbligatoria'),
+    'regione_id'  => new ValidateRequired($user->regione_id,'La regione è obbligatoria'),
+    'provincia_id'  => new ValidateRequired($user->provincia_id,'La provincia è obbligatoria'),
 
-    'username'  => new ValidateRequired('','Username è obbligatorio'),
-    // 'username:email'  => new ValidateMail('','Formato email non valido'),
+    'username'  => new ValidateRequired($user->username,'Username è obbligatorio'),
     'password'  => new ValidateRequired('','Password è obbligatorio')
 ]);
 extract($validatorRunner->getValidatorList());
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $validatorRunner->isValid();
-  
-    if($validatorRunner->getValid()){
-        // print_r($_POST);
-        
-        $user = User::arrayToUser($_POST);
-        // echo "sono qui";
-        // print_r($user);
-        // var_dump($user->regione_id);
-
-       $crud = new UserCRUD;
-       $crud->create($user);
-    }else{
-        echo "il form non è valido";
-    }
-}
+//     $validatorRunner->isValid();
+//     if($validatorRunner->getValid()){
+//         $user = User::arrayToUser($_POST);
+//         $crud = new UserCRUD;
+//         $crud->create($user);
+//     }else{
+//         echo "il form non è valido";
+//     }
+// }
 
 
 
@@ -112,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col">
                         
                         <label for="birth_city" class="form-label">Città</label>
-                        <input type="text" class="form-control <?= !$birth_city->getValid() ? 'is-invalid':''?>" name="birth_city" id="birth_city">
+                        <input type="text" class="form-control <?= !$birth_city->getValid() ? 'is-invalid':''?>" name="birth_city" id="birth_city" value="<?=$birth_city->getValue()?>">
                         <?php if(!$birth_city->getValid()) :?>
                             <div class="invalid-feedback">
                         <?= $birth_city->getMessage()?>

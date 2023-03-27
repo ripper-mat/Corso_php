@@ -47,7 +47,8 @@ class UserCRUD {
         return $stm->rowCount();
     }
 
-    public function read(int $user_id=null)
+    // read può ritornare un utente, un array, un booleano o una stringa
+    public function read(int $user_id=null):User|array|bool|string
     {
         $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
         if(!is_null($user_id)){

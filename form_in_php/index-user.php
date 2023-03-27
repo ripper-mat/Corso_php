@@ -18,6 +18,7 @@ $users = (new UserCRUD())->read();
 <table class="table">
     
     <tr>
+        <th>#</th>
         <th>Nome</th>
         <th>Cognome</th>
         <th>Comune</th>
@@ -26,12 +27,14 @@ $users = (new UserCRUD())->read();
     <tr>
         <?php foreach ($users as $user) { ?>
             <tr>
+            <td><?=$user->user_id?></td>
             <td><?=$user->first_name?></td>
             <td><?=$user->last_name?></td>
             <td><?=$user->birth_city?></td>
          <td>
-            <a href="create-user.php" class="btn btn-primary ">edit</a>
-            <button class="btn btn-danger ">delete</button>
+            <a href="edit-user.php?user_id=<?=$user->user_id?>" class="btn btn-primary ">🦧Modifica</a>
+            <a href="delete-user.php?user_id=<?=$user->user_id?>" class="btn btn-danger ">☠Elimina</a>
+            <!-- <button class="btn btn-danger ">☠Elimina</button> -->
         </td>
             </tr>
         <?php } ?>
