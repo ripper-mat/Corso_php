@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validatorRunner->isValid();
   
     if($validatorRunner->getValid()){
-        print_r($_POST);
+        // print_r($_POST);
         
         $user = User::arrayToUser($_POST);
         // echo "sono qui";
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $crud = new UserCRUD;
         $crud->create($user);
     }else{
-        print_r($_POST);
+        // print_r($_POST);
         echo "il form non è valido";
     }
 }
