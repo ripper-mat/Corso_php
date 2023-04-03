@@ -110,7 +110,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $request = json_decode($input, true);
                     $user = User::arrayToUser($request);
                     
-
                     if (!is_null($user_id)) {
                         $rows=$crud->update($user, $user_id);
                         if($rows == 1){
@@ -125,15 +124,21 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         ];
                         
                         }if ($rows==0){
-                            $response=[
-                                'errors' => [
-                                    [
-                                        'status' => 404,
-                                    'title' => 'user non trovato',
-                                    'details' => $user_id
-                                    ]
-                                ]
-                            ];
+                            $user = $crud->read($user_id);
+                            // var_dump($user);
+                            if(!$user){
+                                $response=[
+                                    'errors' => [
+                                        [
+                                            'status' => 404,
+                                            'title' => 'user non trovato',
+                                            'details' => $user_id
+                                            ]
+                                            ]
+                                        ];
+                            }else{
+                                $response = "Utente con id ".$user_id." gia aggiornato";
+                            }
                         }
                         echo json_encode($response);
                     }else{
