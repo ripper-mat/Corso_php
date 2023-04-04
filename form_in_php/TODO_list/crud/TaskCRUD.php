@@ -4,6 +4,7 @@ namespace crud;
 use models\Task;
 use PDO;
 
+require "config.php";
 class TaskCRUD {
 
 
@@ -17,7 +18,7 @@ class TaskCRUD {
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
-        $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
+        // $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
         $stm->execute();
         
     }
@@ -26,12 +27,12 @@ class TaskCRUD {
     {
         $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
         $query = "UPDATE `tasks` SET  `name`= :name, `due_date`= 
-        :due_date, `done` = :done, `user_id`= :user_id WHERE task_id= :task_id;";
+        :due_date, `done` = :done WHERE task_id= :task_id;";
         $stm = $conn->prepare($query);
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
-        $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
+        // $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
         $stm->execute();
         return $stm->rowCount();
     }
