@@ -18,7 +18,7 @@ class TaskCRUD {
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
-        // $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
+        //$stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_INT);
         $stm->execute();
         
     }
@@ -32,7 +32,8 @@ class TaskCRUD {
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
-        // $stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_STR);
+        //$stm->bindValue('user_id',$task->user_id, \PDO::PARAM_INT);
+     
         $stm->execute();
         return $stm->rowCount();
     }
