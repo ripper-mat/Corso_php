@@ -4,22 +4,31 @@ namespace crud;
 use models\Task;
 use PDO;
 
+require "form_in_php/class/models/User.php";
+require "form_in_php/class/crud/UserCRUD.php";
 require "config.php";
 class TaskCRUD {
 
 
-    public function create(Task $task)
+    public function create(Task $task, $user_id)
     {
-        $query = "INSERT INTO tasks ( name, due_date, done) 
-                  VALUES (:name, :due_date, :done)
+        $crud = new UserCRUD();
+        $user_fk = $crud->read($user_id);
+        if($user_fk){
+        $query = "INSERT INTO tasks ( name, due_date, done, user_id) 
+                  VALUES (:name, :due_date, :done, :user_id)
                  ";
         $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
         $stm = $conn->prepare($query);
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
-        //$stm->bindValue(':user_id',$task->user_id,\PDO::PARAM_INT);
+        $stm->bindValue(':user_id',$user_id,\PDO::PARAM_INT);
         $stm->execute();
+        }
+        if(!$user_fk){
+            echo "Impossibile creare una task per questo utente";
+        }
         
     }
 
@@ -29,6 +38,8 @@ class TaskCRUD {
         $query = "UPDATE `tasks` SET  `name`= :name, `due_date`= 
         :due_date, `done` = :done WHERE task_id= :task_id;";
         $stm = $conn->prepare($query);
+
+        $stm->bindValue(':task_id',$task_id,\PDO::PARAM_INT);
         $stm->bindValue(':name',$task->name,\PDO::PARAM_STR);
         $stm->bindValue(':due_date',$task->due_date,\PDO::PARAM_STR);
         $stm->bindValue(':done',$task->done,\PDO::PARAM_STR);
@@ -72,14 +83,14 @@ class TaskCRUD {
         return $result;
     }
 
-//     public function delete($user_id)
-//     {
-//         $conn= new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
-//         $query="DELETE from user WHERE user_id = :user_id";
-//         $stm = $conn->prepare($query);
-//         $stm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-//         $stm->execute();
-//         return $stm->rowCount();
+    public function delete($task_id)
+    {
+        $conn= new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
+        $query="DELETE from tasks WHERE task_id = :task_id";
+        $stm = $conn->prepare($query);
+        $stm->bindValue(':task_id', $task_id, PDO::PARAM_INT);
+        $stm->execute();
+        return $stm->rowCount();
 
-//     }
+    }
  }
