@@ -2,11 +2,9 @@
 namespace crud;
 
 use models\Task;
+use crud\UserCRUD;
 use PDO;
 
-require "form_in_php/class/models/User.php";
-require "form_in_php/class/crud/UserCRUD.php";
-require "config.php";
 class TaskCRUD {
 
 
@@ -63,6 +61,37 @@ class TaskCRUD {
             }
             if(count($result)>1){
                 throw new \Exception("Chiave primaria duplicata", 1);
+            }
+            if(count($result)=== 0){
+                return false;
+            }
+        }else{
+            $query = "SELECT * FROM tasks";
+            $stm = $conn->prepare($query);
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_CLASS,Task::class);
+            if(count($result)=== 0){
+                return false;
+            }
+            return $result;
+
+        }
+       // $result = $stm->fetchAll(PDO::FETCH_CLASS,User::class);
+        // echo "ciao sono ".User::class."\n";
+        return $result;
+    }
+
+    public function readByUser(int $user_id=null):Task|array|bool|string
+    {
+        $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
+        if(!is_null($user_id)){
+            $query = "SELECT * FROM tasks where user_id = :user_id";
+            $stm = $conn->prepare($query);
+            $stm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stm->execute();
+            $result = $stm->fetchAll(PDO::FETCH_CLASS,Task::class);
+            if(count($result)>=1){
+                return $result;
             }
             if(count($result)=== 0){
                 return false;
