@@ -2,8 +2,9 @@
 
 use crud\TaskCRUD;
 use models\Task;
+use models\User;
 
-include "../../config.php";
+include "../config.php";
 include "../autoload.php";
 
 $crud = new TaskCRUD;
@@ -27,9 +28,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         case 'DELETE':
 
-        $user_id = filter_input(INPUT_GET, 'user_id');
-            if (!is_null($user_id)) {
-                $rows=$crud->delete($user_id);
+        $task_id = filter_input(INPUT_GET, 'task_id');
+            if (!is_null($task_id)) {
+                $rows=$crud->delete($task_id);
                 if($rows == 1){
                     /**
                     {
@@ -49,8 +50,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                             [
                                 "status" => 200,
-                                'title' => "utente eliminato",
-                                'details' => $user_id
+                                'title' => "task eliminata",
+                                'details' => $task_id
                             ],
                         ]
                     ];
@@ -64,8 +65,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         'errors' => [
                             [
                                 'status' => 404,
-                            'title' => 'user non trovato',
-                            'details' => $user_id
+                            'title' => 'task non trovata',
+                            'details' => $task_id
                             ]
                         ]
                     ];
@@ -81,70 +82,61 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 $input = file_get_contents('php://input');
                 $request = json_decode($input, true); //con true ottengo un array associativo
                 // var_dump($request);
+                $user_id=$request["user_id"];
+                // var_dump($user_id);               
+                
+                $task = Task::arrayToTask($request);
+                $last_id = $crud->create($task, $user_id);  
 
-                $user = User::arrayToUser($request);
-                $last_id = $crud->create($user);
-
-                // $response= [                    
-                //     "data"=> [
-                //         "type"=> "users",
-                //         'id' => $last_id,
-                //         'attributes' => $user
-                //     ]
-                // ];
-
-                $user = (array) $user;
-                unset($user['password']);
-
-                $user['user_id']= $last_id;
+                $task = (array) $task;
+                $task['task_id']= $last_id;
                 $response=[
-                    'data'=> $user,
-                    'status' => 200
+                    'data'=> $task,
+                    'status' => 201
                 ];
                 echo json_encode($response);
 
 
 
                 case 'PUT':
-                    $user_id = filter_input(INPUT_GET, 'user_id');
+                    $task_id = filter_input(INPUT_GET, 'task_id');
                     $input = file_get_contents('php://input');
                     $request = json_decode($input, true);
-                    $user = User::arrayToUser($request);
+                    $task = Task::arrayToTask($request);
                     
-                    if (!is_null($user_id)) {
-                        $rows=$crud->update($user, $user_id);
+                    if (!is_null($task_id)) {
+                        $rows=$crud->update($task, $task_id);
                         if($rows == 1){
                         
-                        $user = (array) $user;
-                        unset($user['password']);
+                        $task = (array) $task;
                         
-                        $user['user_id']= $user_id;
+                        $task['task_id']= $task_id;
                         $response=[
-                            'data'=> $user,
+                            'data'=> $task,
                             'status' => 200
                         ];
                         
                         }if ($rows==0){
-                            $user = $crud->read($user_id);
+                            $task = $crud->read($task_id);
                             // var_dump($user);
-                            if(!$user){
+                            if(!$task){
                                 $response=[
                                     'errors' => [
                                         [
                                             'status' => 404,
-                                            'title' => 'user non trovato',
-                                            'details' => $user_id
+                                            'title' => 'task non trovata',
+                                            'details' => $task_id
                                             ]
                                             ]
                                         ];
                             }else{
-                                $response = "Utente con id ".$user_id." gia aggiornato";
+                                $response = "Task con id ".$task_id." gia aggiornata";
                             }
                         }
                         echo json_encode($response);
                     }else{
-                        $users = $crud->read();
-                        echo json_encode($users);
+                        $task = $crud->read();
+                        echo json_encode($task);
                         
                     }
 

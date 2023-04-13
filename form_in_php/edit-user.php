@@ -10,7 +10,7 @@ use validator\ValidateRequired;
 use validator\ValidatorRunner;
 
 require "./autoload.php";
-require "../config.php";
+require "./config.php";
 
 $user_id = filter_input(INPUT_GET,"user_id", FILTER_VALIDATE_INT);
 // var_dump($user_id);
