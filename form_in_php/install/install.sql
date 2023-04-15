@@ -227,7 +227,7 @@ ADD UNIQUE (username);
 --
 -- Indici per le tabelle `regione`
 --
-ALTER TABLE `regioni`
+ALTER TABLE `regione`
   ADD PRIMARY KEY (`regione_id`);
 
 --
@@ -245,7 +245,7 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT per la tabella `regione`
 --
-ALTER TABLE `regioni`
+ALTER TABLE `regione`
   MODIFY `regione_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 

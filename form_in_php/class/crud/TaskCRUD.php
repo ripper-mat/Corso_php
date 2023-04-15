@@ -24,9 +24,9 @@ class TaskCRUD {
         $stm->bindValue(':user_id',$user_id,\PDO::PARAM_INT);
         $stm->execute();
         }
-        if(!$user_fk){
-            echo "Impossibile creare una task per questo utente";
-        }
+        // if(!$user_fk){
+        //     echo "Impossibile creare una task per questo utente\n";
+        // }
         
     }
 
@@ -76,12 +76,10 @@ class TaskCRUD {
             return $result;
 
         }
-       // $result = $stm->fetchAll(PDO::FETCH_CLASS,User::class);
-        // echo "ciao sono ".User::class."\n";
         return $result;
     }
 
-    public function readByUser(int $user_id=null):Task|array|bool|string
+    public function readByUser(int $user_id=null)
     {
         $conn = new \PDO(DB_DSN,DB_USER,DB_PASSWORD);
         if(!is_null($user_id)){
@@ -107,8 +105,6 @@ class TaskCRUD {
             return $result;
 
         }
-       // $result = $stm->fetchAll(PDO::FETCH_CLASS,User::class);
-        // echo "ciao sono ".User::class."\n";
         return $result;
     }
 

@@ -14,16 +14,39 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         $user_id = filter_input(INPUT_GET, 'user_id');
         if (!is_null($user_id)) {
-            echo json_encode($crud->read($user_id));
+            $user = $crud->read($user_id);
+            if($user){
+
+                $response=[
+                    "data"=>$user,
+                    "status"=>200
+                ];
+            }else{
+                $response=[
+                    'errors' => [
+                        [
+                        'status' => 404,
+                        'title' => 'user non trovato',
+                        'details' => $user_id
+                        ]
+                    ]
+                ];
+            }
+            echo json_encode($response);
             
+        // else if($user_id){}
         }else{
-            $users = $crud->read();
-            echo json_encode($users);
+            $response =[
+                "data"=> $crud->read(),
+                "status"=>200
+            ];
+            echo json_encode($response);
             
         }
         // var_dump($user_id);die();
         // ottenere elenco degli utenti
         break;
+
         case 'DELETE':
 
         $user_id = filter_input(INPUT_GET, 'user_id');
@@ -43,7 +66,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     }
                     */
                     $response=[
-                        'errors' => 
+                        'data' => 
                         [
 
                             [
@@ -75,7 +98,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             break;
 
             case 'POST' :
-
+                try{
                 // print_r($_POST);
                 $input = file_get_contents('php://input');
                 $request = json_decode($input, true); //con true ottengo un array associativo
@@ -83,7 +106,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 $user = User::arrayToUser($request);
                 $last_id = $crud->create($user);
-
+                $user->user_id=$last_id;
                 // $response= [                    
                 //     "data"=> [
                 //         "type"=> "users",
@@ -92,15 +115,20 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 //     ]
                 // ];
 
-                $user = (array) $user;
-                unset($user['password']);
+                // $user = (array) $user;
+                // unset($user['password']);
 
-                $user['user_id']= $last_id;
+                // $user['user_id']= $last_id;
                 $response=[
                     'data'=> $user,
                     'status' => 200
                 ];
                 echo json_encode($response);
+            }catch(\Throwable $th) {
+                $response = responseError($th);
+                echo json_encode($response);
+            }
+                break;
 
 
 
