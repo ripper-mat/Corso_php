@@ -134,7 +134,7 @@ input {
 }
 
 .done{
-    opacity: 30%;
+    /* opacity: 70%; */
     text-decoration: line-through;
 }
 

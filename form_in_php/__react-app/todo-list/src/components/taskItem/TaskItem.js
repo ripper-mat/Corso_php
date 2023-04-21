@@ -1,8 +1,10 @@
 
 
-const TaskItem = props => {
+function TaskItem() {
     return(
-        <li className="done">Hit the gym</li>
+        <li>
+            <label for="" class="done">Hit the gym</label>
+        </li>
     )
 }
 
