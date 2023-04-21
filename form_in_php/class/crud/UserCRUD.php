@@ -22,10 +22,13 @@ class UserCRUD {
         $stm->bindValue(':provincia_id',$user->provincia_id,\PDO::PARAM_INT);
         $stm->bindValue(':username',$user->username,\PDO::PARAM_STR);
         $stm->bindValue(':password',md5($user->password),\PDO::PARAM_STR);
-        $stm->bindValue(':gender',$user->gender,\PDO::PARAM_STR);
-        
+        $stm->bindValue(':gender',$user->gender,\PDO::PARAM_STR); 
         $stm->execute();
-        
+        $query2= "SELECT LAST_INSERT_ID();";
+        $stm = $conn->prepare($query2);
+        $stm->execute();
+        $result = $stm->fetch(PDO::FETCH_DEFAULT);
+        return $result;
     }
 
     public function update($user, $user_id)

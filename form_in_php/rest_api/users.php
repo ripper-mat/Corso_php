@@ -106,28 +106,27 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 $user = User::arrayToUser($request);
                 $last_id = $crud->create($user);
-                $user->user_id=$last_id;
-                // $response= [                    
-                //     "data"=> [
-                //         "type"=> "users",
-                //         'id' => $last_id,
-                //         'attributes' => $user
-                //     ]
-                // ];
+                // var_dump($last_id);
+                $user->user_id=$last_id["LAST_INSERT_ID()"];
 
-                // $user = (array) $user;
-                // unset($user['password']);
+                    $response=[
+                        'data'=> $user,
+                        'status' => 200
+                    ];
+                    echo json_encode($response);
 
-                // $user['user_id']= $last_id;
-                $response=[
-                    'data'=> $user,
-                    'status' => 200
-                ];
-                echo json_encode($response);
-            }catch(\Throwable $th) {
-                $response = responseError($th);
-                echo json_encode($response);
-            }
+                }catch(\Throwable $th) {
+                    $response = [
+                        'errors' => [
+                            [
+                                'status' => 422,
+                                'title' => 'formato non corretto',
+                                'details' => $th->getMessage()
+                            ]
+                        ]
+                    ];
+                    echo json_encode($response);
+                }
                 break;
 
 

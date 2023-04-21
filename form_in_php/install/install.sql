@@ -157,7 +157,7 @@ INSERT INTO `province` (`provincia_id`, `nome`, `sigla`, `regione_id`) VALUES
 -- Struttura della tabella `regione`
 --
 
-DROP TABLE IF EXISTS `regione`;
+DROP TABLE IF EXISTS `regioni`;
 CREATE TABLE `regione` (
   `regione_id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
