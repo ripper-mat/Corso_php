@@ -2,32 +2,49 @@ import './components/taskItem/TaskItem.css'
 import TaskItem from './components/taskItem/TaskItem';
 import './App.css'
 import TaskList from './components/TaskList/TaskList';
+import {useState} from 'react'
 
 function App() {
-  const taskListData=[
-    {
-      task_id: 10,
-      user_id: 12,
-      name: "comprare il latte",
-      due_date:"2022-04-04",
-      done:false
-    },
+  // const taskListData=[
+  //   {
+  //     task_id: 10,
+  //     user_id: 12,
+  //     name: "comprare il latte",
+  //     due_date:"2022-04-04",
+  //     done:false
+  //   },
     
-      {
-        user_id: 11,
-        name: "Uccidere tutti",
-        due_date: "2023-04-04",
-        done: true,
-        task_id: 5
-      }
+      // {
+      //   user_id: 11,
+      //   name: "Uccidere tutti",
+      //   due_date: "2023-04-04",
+      //   done: true,
+      //   task_id: 5
+      // }
     
-  ]
+  // ]
 
+  const [taskListData, setTasklistData]= useState([])
+
+  function aggiungiTask(){
+    setTasklistData((attuale)=>{
+      attuale.push({
+          user_id: 11,
+          name: "Uccidere tutti",
+          due_date: "2023-04-04",
+          done: true,
+          task_id: 5
+      })
+      console.log(attuale)
+      return attuale
+    })
+  }
 
   const list = taskListData.map(task => <TaskItem nome_task={task.name}/>)
 
   return(
   <main>
+    <button onClick={aggiungiTask}>Add task</button>
     <TaskList header={'Paolo'} task={taskListData}>
       {taskListData.map(task => <TaskItem key={task.task_id} done={task.done} nome_task={task.name}/>)}
     </TaskList>
