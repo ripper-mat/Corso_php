@@ -70,6 +70,29 @@ const updatedTaskItem= {
 }
 
 const updatedTasklist = updateTask(updatedTaskItem, tasklist)
-console.log(updatedTasklist)
+// console.log(updatedTasklist)
+
+const newTaskNoName =  
+    { 
+        // name:"AAA",
+        user_id:12,
+        due_date:"2023-04-25"
+    }
+    const newTaskEmptyName =  
+    { 
+        name:"        ",
+        user_id:12,
+        due_date:"2023-04-25"
+    }
+
+    try{
+        // const addTaskNoName = addTask(newTaskNoName,tasklist)
+        const addTaskemptyName = addTask(newTaskEmptyName,tasklist)
+        console.log("test nome vuoto fallito")
+    }catch (error){
+        if(!(error.message=== 'manca il nome della task')){
+            console.log("test fallito, error unexpected")
+        }
+    }
 
 

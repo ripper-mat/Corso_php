@@ -1,8 +1,11 @@
 
 export const addTask = (newTask, todos) => {
+    if(newTask.name===undefined || newTask.name.trim()=== ""){
+        throw new Error("manca il nome della task")
+    }
     // fai un a copia shallow
     const todosCopy = new Array(...todos)
-    const newTaskCopy = {...newTask}
+    const newTaskCopy = {...newTask,...{name:newTask.name.trim()}}
     newTaskCopy.id = (new Date).getTime()
     // cambia la copia
     todosCopy.push(newTaskCopy)
