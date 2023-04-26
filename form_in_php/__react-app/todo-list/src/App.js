@@ -3,6 +3,7 @@ import TaskItem from './components/taskItem/TaskItem';
 import './App.css'
 import TaskList from './components/TaskList/TaskList';
 import {useState} from 'react'
+import SearchBar from './components/SearchBar';
 
 function App() {
   // const taskListData=[
@@ -23,7 +24,7 @@ function App() {
       // }
     
   // ]
-
+  // const taskListData = []
   const [taskListData, setTasklistData]= useState([])
 
   function aggiungiTask(){
@@ -45,6 +46,7 @@ function App() {
   return(
   <main>
     <button onClick={aggiungiTask}>Add task</button>
+    <SearchBar></SearchBar><br/>
     <TaskList header={'Paolo'} task={taskListData}>
       {taskListData.map(task => <TaskItem key={task.task_id} done={task.done} nome_task={task.name}/>)}
     </TaskList>
