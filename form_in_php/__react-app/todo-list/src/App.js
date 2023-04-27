@@ -4,8 +4,10 @@ import './App.css'
 import TaskList from './components/TaskList/TaskList';
 import {useState} from 'react'
 import SearchBar from './components/SearchBar';
+import { addTask, removeTask } from './service/TOdoService';
 
 function App() {
+  // const [taskListData, setTaskListData] = useState([])
   // const taskListData=[
   //   {
   //     task_id: 10,
@@ -27,32 +29,75 @@ function App() {
   // const taskListData = []
   const [taskListData, setTasklistData]= useState([])
 
-  function aggiungiTask(){
-    setTasklistData((attuale)=>{
-      attuale.push({
-          user_id: 11,
-          name: "Uccidere tutti",
-          due_date: "2023-04-04",
-          done: true,
-          task_id: 5
-      })
-      console.log(attuale)
-      return attuale
-    })
+  // function aggiungiTask(){
+  //   setTasklistData((attuale)=>{
+  //     attuale.push({
+  //         user_id: 11,
+  //         name: "Uccidere tutti",
+  //         due_date: "2023-04-04",
+  //         done: true,
+  //         task_id: 5
+  //     })
+  //     console.log(attuale)
+  //     return attuale
+  //   })
+  // }
+
+  // const list = taskListData.map(task => <TaskItem nome_task={task.name}/>)
+
+  function parentAddTask(newTask){
+    // TODO USER_ID
+    const newTaskListData = addTask(newTask, taskListData)
+    // console.log(newTaskListData)
+    setTasklistData(newTaskListData)
   }
 
-  const list = taskListData.map(task => <TaskItem nome_task={task.name}/>)
+  function parentRemoveTask(taskId){
+    console.log("parentRemove "+taskId)
+    const res = removeTask(taskId,taskListData)
+    setTasklistData(res)
+  }
+
+  function onShowCompleted() {
+    // chiamo il servizio
+    // aggiorno lo stato
+
+  }
+
+  function onShowAll(){
+    setTasklistData(taskListData)
+  }
+
+  function onShowActive(){
+    const activeList = taskListData.forEach(task => {
+      if(task.done){
+        removeTask(task.id, taskListData)
+      }
+      // return activeList
+      console.log(activeList)
+      
+    });
+    setTasklistData()
+  }
 
   return(
   <main>
-    <button onClick={aggiungiTask}>Add task</button>
-    <SearchBar></SearchBar><br/>
+    {/* <button onClick={aggiungiTask}>Add task</button> */}
+    <SearchBar parentAddTask={parentAddTask}></SearchBar><br/><br/>
+    <button onClick={onShowAll}>all</button>
+    <button onClick={onShowActive}>active</button>
+    <button onClick={onShowCompleted}>completed</button><br/>
     <TaskList header={'Paolo'} task={taskListData}>
-      {taskListData.map(task => <TaskItem key={task.task_id} done={task.done} nome_task={task.name}/>)}
+      {taskListData.map(task => <TaskItem key={task.task_id}
+      parentRemoveTask={parentRemoveTask}
+       id={task.id}
+       done={task.done} 
+       nome_task={task.name}
+       />)}
     </TaskList>
-    <TaskList header={'Giovanni'} task={taskListData}>
+    {/* <TaskList header={'Giovanni'} task={taskListData}>
       {taskListData.map(task => <TaskItem key={task.task_id} done={task.done} nome_task={task.name}/>)}
-    </TaskList>
+    </TaskList> */}
   </main>
   )
 }

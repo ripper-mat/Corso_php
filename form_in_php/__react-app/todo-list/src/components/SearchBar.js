@@ -1,17 +1,31 @@
 import { useState } from "react"
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 
+    // hook useState const taskName | const setTaskName
+    // taskName è la variabile che contiene lo stato attuale
+    // setTaskName è la funzione che devo chiamare ogni volta che devo comunicare a react che
+    // il valore di taskName è cambiato
     const [taskName, setTaskName] = useState('')
     const [taskDueDate, setTaskDueDate] = useState('')
   
+    function onAddTask(){
+        const newTask = {
+            name:taskName.trim(),
+            due_date: taskDueDate,
+            done:false
+        }
+        props.parentAddTask(newTask)
+        // console.log(newTask)
+        setTaskName('')
+    }
 
     return (
         <section className="container">
-            <pre>
+            {/* <pre>
                 {taskName}
                 {taskDueDate}
-            </pre>
+            </pre> */}
         <div>
             {/* var taskName = document.getElementById("myselect").value; */}
             {/* [ ] assegnare una variabile di stato al value */}
@@ -20,7 +34,13 @@ const SearchBar = () => {
         value={taskName}
         onChange={evento => setTaskName(evento.target.value)}
         id="myInput" placeholder="Aggiungi/Cerca"/><br/>
-        <button className="addBtn btn">Add</button><br/><br/><br/><br/>
+        {/* {!taskName.trim().length>0?'si' : 'no'} */}
+        <button 
+            type="submit"
+            className="addBtn btn"
+            onClick={onAddTask}
+            disabled={!taskName.trim().length>0 ? 'devi inserire un titolo' : ''}
+        >Add</button><br/><br/><br/><br/>
         </div>
             
         <div>

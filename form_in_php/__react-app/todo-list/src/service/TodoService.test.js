@@ -1,4 +1,4 @@
-import { activeFilter, addTask, completedFilter, removeTask, updateTask } from "./TOdoService.js";
+import { activeFilter, addTask, completedFilter, dateFilter, removeTask, updateTask } from "./TOdoService.js";
 
 const tasklist = [
     
@@ -94,5 +94,8 @@ const newTaskNoName =
             console.log("test fallito, error unexpected")
         }
     }
+
+    const taskDate = dateFilter("2023-04-22", tasklist)
+    console.log(taskDate)
 
 
