@@ -4,7 +4,7 @@ import './App.css'
 import TaskList from './components/TaskList/TaskList';
 import {useState} from 'react'
 import SearchBar from './components/SearchBar';
-import { addTask, removeTask } from './service/TOdoService';
+import { activeFilter, addTask, completedFilter, removeTask } from './service/TOdoService';
 
 function App() {
   // const [taskListData, setTaskListData] = useState([])
@@ -28,7 +28,7 @@ function App() {
   // ]
   // const taskListData = []
   const [taskListData, setTasklistData]= useState([])
-
+  
   // function aggiungiTask(){
   //   setTasklistData((attuale)=>{
   //     attuale.push({
@@ -58,37 +58,32 @@ function App() {
     setTasklistData(res)
   }
 
+  const [filteredTasks, setFilteredTasks] = useState(taskListData)
   function onShowCompleted() {
     // chiamo il servizio
     // aggiorno lo stato
-
+    const res = completedFilter(taskListData)
+    setFilteredTasks(res)
   }
 
   function onShowAll(){
-    setTasklistData(taskListData)
+    setFilteredTasks(taskListData)
   }
 
   function onShowActive(){
-    const activeList = taskListData.forEach(task => {
-      if(task.done){
-        removeTask(task.id, taskListData)
-      }
-      // return activeList
-      console.log(activeList)
-      
-    });
-    setTasklistData()
+    const res = activeFilter(taskListData)
+    setFilteredTasks(res)
   }
 
   return(
   <main>
     {/* <button onClick={aggiungiTask}>Add task</button> */}
     <SearchBar parentAddTask={parentAddTask}></SearchBar><br/><br/>
-    <button onClick={onShowAll}>all</button>
-    <button onClick={onShowActive}>active</button>
-    <button onClick={onShowCompleted}>completed</button><br/>
+    <button className='filterBtn' onClick={onShowAll}>all</button>
+    <button className='filterBtn' onClick={onShowActive}>active</button>
+    <button className='filterBtn' onClick={onShowCompleted}>completed</button><br/>
     <TaskList header={'Paolo'} task={taskListData}>
-      {taskListData.map(task => <TaskItem key={task.task_id}
+      {filteredTasks.map(task => <TaskItem key={task.task_id}
       parentRemoveTask={parentRemoveTask}
        id={task.id}
        done={task.done} 
